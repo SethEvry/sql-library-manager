@@ -1,0 +1,36 @@
+extends layout
+
+block content
+  .wrapper 
+    .nav-bar
+      a.button(href='/books/new') Create New Book
+      form.search-bar(method="/books")
+        input(type='search' name='search' placeholder='Search')
+        input(type='submit' value="Submit")   
+        a.button(href='/') Clear       
+    table
+      thead
+        tr
+          th Title
+          th Author
+          th Genre
+          th Year
+      tbody
+        each book in books
+          tr
+            td
+              a(href=`/books/${book.id}`) #{book.title}
+            td #{book.author}
+            td #{book.genre}
+            td #{book.year}
+
+    if books.pages > 1
+      .paginator
+        - var i = 1;
+        while i <= books.pages
+          a.button(class=(i === books.currentPage ? "active" : null) href=`/books?page=${i}`) #{i++}
+
+
+
+
+
